@@ -1,22 +1,17 @@
 version: 0.0
 os: linux
 files:
-  - source: /
-    destination: /home/ubuntu/node_CI-CD_codedeploy
+  - source: /index.html
+    destination: /var/www/html/
 hooks:
-# ApplicationStop:
-# DownloadBundle:
-#  BeforeInstall:
-#    - location: scripts/before_install.sh
-#      timeout: 300
-#      runas: root
-# Install:
-  AfterInstall:
-    - location: scripts/after_install.sh
+  BeforeInstall:
+    - location: scripts/install_dependencies
       timeout: 300
       runas: root
-  ApplicationStart:
-    - location: scripts/application_start.sh
+    - location: scripts/start_server
       timeout: 300
       runas: root
-# ValidateService:
+  ApplicationStop:
+    - location: scripts/stop_server
+      timeout: 300
+      runas: root
